@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.function.Consumer;
@@ -55,8 +56,9 @@ public class ChatClient {
     	socket = new Socket(host, port);
         // TODO 2) in / out 스트림 초기화 (UTF-8)
     	InputStream tmpIn = socket.getInputStream();
-        InputStreamReader in_reader = new InputStreamReader(tmpIn);
+        InputStreamReader in_reader = new InputStreamReader(tmpIn,"UTF-8");
         in = new BufferedReader(in_reader);
+        out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF-8"));
         // TODO 3) out 으로 첫 줄에 닉네임 송신
         out.println(nickname);
         // TODO 4) running = true; → new Thread(this::readLoop).setDaemon(true) → start()
