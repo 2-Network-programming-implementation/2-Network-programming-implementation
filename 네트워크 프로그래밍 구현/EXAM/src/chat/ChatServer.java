@@ -85,8 +85,7 @@ public class ChatServer {
      */
     public static void broadcast(String message) {
         // TODO: 동기화 블록 안에서 clients 순회 → 각 handler.send(message) 호출
-        System.out.println("[broadcast TODO] " + message);
-    }
+    	
 
     /** 클라이언트 접속 종료 시 컬렉션에서 제거 */
     public static void remove(ChatHandler handler) {
