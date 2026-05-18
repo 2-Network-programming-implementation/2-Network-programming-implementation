@@ -1,7 +1,11 @@
 package book;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * JDBC Connection 유틸 (☆ 학생 구현)
@@ -51,6 +55,19 @@ public class DBUtil {
      */
     public static Connection getConnection() throws SQLException {
         // TODO 1) Properties 로 config/db.properties 로드
+    	Properties prop = new Properties();
+    	
+    	try(InputStream fin = new FileInputStream("config/db.properties");) {
+    		prop.load(fin);
+    	} catch (IOException e) {
+//    		e.printStackTrace();
+    		throw new RuntimeException("DBManager's getConnection() db.propertis..." +e.getCause());
+    	}
+    	String driver	 = prop.getProperty("db.driver");
+    	String url		 = prop.getProperty("db.url");
+    	String user 	 = prop.getProperty("db.user");
+    	String password  = prop.getProperty("db.password");
+    	
         // TODO 2) Class.forName(driver) — JDBC 4단계 ①
         // TODO 3) return DriverManager.getConnection(url, user, password); — JDBC 4단계 ②
 
