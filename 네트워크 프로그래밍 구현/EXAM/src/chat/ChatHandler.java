@@ -2,6 +2,8 @@ package chat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -38,7 +40,9 @@ public class ChatHandler implements Runnable {
         this.socket = socket;
         // TODO: in / out 스트림 초기화 (UTF-8 명시!)
         //   - in : BufferedReader + InputStreamReader(socket.getInputStream(), "UTF-8")
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
         //   - out: PrintWriter   + OutputStreamWriter(socket.getOutputStream(), "UTF-8"), autoFlush=true
+        out = new PrintWriter (new OutputStreamWriter(socket.getOutputStream(),"UTF-8"), true);
     }
 
     @Override
