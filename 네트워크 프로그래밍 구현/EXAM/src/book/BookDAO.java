@@ -138,6 +138,10 @@ public class BookDAO {
      */
     public int delete(String bookCode) throws SQLException {
         // TODO: PreparedStatement 로 SQL_DELETE 실행
-        throw new UnsupportedOperationException("BookDAO.delete() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setString(1, bookCode);
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 }
