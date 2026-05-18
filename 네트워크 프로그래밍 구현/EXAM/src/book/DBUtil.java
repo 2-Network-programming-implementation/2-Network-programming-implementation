@@ -95,5 +95,15 @@ public class DBUtil {
      */
     public static void close(AutoCloseable... closeables) {
         // TODO: for-each + null 체크 + try { c.close(); } catch (Exception ignored) {}
+    	for(AutoCloseable c : closeables) {
+    		if(c!=null) {
+    			try {
+					c.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+//					e.printStackTrace();
+				}
+    		}
+    	}
     }
 }
