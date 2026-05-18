@@ -69,6 +69,14 @@ public class DBUtil {
     	String password  = prop.getProperty("db.password");
     	
         // TODO 2) Class.forName(driver) — JDBC 4단계 ①
+    	try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException("DBManager's getConnection() Class.forName..." +e.getCause());
+		}
+    	
         // TODO 3) return DriverManager.getConnection(url, user, password); — JDBC 4단계 ②
 
         throw new UnsupportedOperationException(
