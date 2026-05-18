@@ -51,8 +51,13 @@ public class ChatServer {
         	ServerSocket ss = new ServerSocket(PORT);
         	System.out.println("서버 접속을 시작합니다");
             // TODO 2) 무한 루프 안에서 accept() 로 Socket 받기
+        	while (true) {
+        	Socket sc = ss.accept();
         	
-            // TODO 3) 받은 Socket 으로 ChatHandler 생성 → clients 에 add → 새 Thread 로 start
+        	// TODO 3) 받은 Socket 으로 ChatHandler 생성 → clients 에 add → 새 Thread 로 start
+        	
+        	}
+            
 
             // 학생이 위 TODO 를 모두 구현하면 아래 한 줄 삭제
             throw new IOException("ChatServer.main() 가 아직 구현되지 않았습니다. (TODO)");
