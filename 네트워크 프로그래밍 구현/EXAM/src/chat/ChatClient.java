@@ -60,8 +60,10 @@ public class ChatClient {
         // TODO 3) out 으로 첫 줄에 닉네임 송신
         out.println(nickname);
         // TODO 4) running = true; → new Thread(this::readLoop).setDaemon(true) → start()
-
-        throw new IOException("ChatClient.connect() 가 아직 구현되지 않았습니다. (TODO)");
+        running =true;
+        readerThread = new Thread(this::readLoop);
+        readerThread.setDaemon(true);
+        readerThread.start();
     }
 
     /** 메시지 송신 */
