@@ -11,7 +11,7 @@ import java.util.Set;
  * 채팅 서버 (☆ 학생 구현)
  *
  * <pre>
- * 담당자(@assignee): ___________________
+ * 담당자(@assignee): _______원병선____________
  * 작업단위(@task)  : TASK-A
  * 가이드 카드      : docs/tasks/TASK-A_조원_ChatServer_Handler.md
  *
