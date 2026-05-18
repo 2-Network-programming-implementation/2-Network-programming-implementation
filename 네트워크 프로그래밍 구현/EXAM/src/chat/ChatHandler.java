@@ -20,73 +20,95 @@ import java.net.Socket;
  * 체크리스트 2-3 (Thread), 2-4 (broadcast 송신), 2-5 (자원 해제)
  * </pre>
  *
- * <p><b>학생 구현 가이드 (정답 코드 ✗ — 가이드만)</b></p>
+ * <p>
+ * <b>학생 구현 가이드 (정답 코드 ✗ — 가이드만)</b>
+ * </p>
  * <ol>
- *   <li>생성자: Socket 의 InputStream / OutputStream 을 BufferedReader / PrintWriter 로 감싼다 (UTF-8 명시).</li>
- *   <li>run(): 첫 줄을 닉네임으로 받고, readLine() 반복하여 ChatServer.broadcast() 호출.</li>
- *   <li>send(): out.println(message) 한 줄.</li>
- *   <li>finally: ChatServer.remove(this) + in/out/socket close.</li>
+ * <li>생성자: Socket 의 InputStream / OutputStream 을 BufferedReader / PrintWriter 로
+ * 감싼다 (UTF-8 명시).</li>
+ * <li>run(): 첫 줄을 닉네임으로 받고, readLine() 반복하여 ChatServer.broadcast() 호출.</li>
+ * <li>send(): out.println(message) 한 줄.</li>
+ * <li>finally: ChatServer.remove(this) + in/out/socket close.</li>
  * </ol>
  *
- * <p>필요 import (추가): <code>java.io.InputStreamReader</code>, <code>java.io.OutputStreamWriter</code></p>
+ * <p>
+ * 필요 import (추가): <code>java.io.InputStreamReader</code>,
+ * <code>java.io.OutputStreamWriter</code>
+ * </p>
  */
 public class ChatHandler implements Runnable {
 
-    private final Socket socket;
-    private BufferedReader in;
-    private PrintWriter out;
-    private String nickname = "guest";
+	private final Socket socket;
+	private BufferedReader in;
+	private PrintWriter out;
+	private String nickname = "guest";
 
-    public ChatHandler(Socket socket) throws IOException {
-        this.socket = socket;
-        // TODO: in / out 스트림 초기화 (UTF-8 명시!)
-        InputStream tmpIn = socket.getInputStream();
-        InputStreamReader in_reader = new InputStreamReader(tmpIn);
-        in = new BufferedReader(in_reader);
-        out = new PrintWriter(socket.getOutputStream());
-    }
+	public ChatHandler(Socket socket) throws IOException {
+		this.socket = socket;
+		// TODO: in / out 스트림 초기화 (UTF-8 명시!)
+		InputStream tmpIn = socket.getInputStream();
+		InputStreamReader in_reader = new InputStreamReader(tmpIn);
+		in = new BufferedReader(in_reader);
+		out = new PrintWriter(socket.getOutputStream());
+	}
 
-    @Override
-    public void run() {
-        try {
-            // ====== 학생 구현 시작 ======================================
-            // TODO 1) (선택) 첫 줄을 닉네임으로 받아 nickname 필드에 저장 + 입장 broadcast
-        	String nick = in.readLine();
-        	if(nick!=null && !nick.isBlank()) {
-        		this.nickname = nick;
-        	}
-            // TODO 2) readLine() 반복 → null 이 아니면 ChatServer.broadcast(닉네임 + " : " + line)
-        	String line = null;
-        	while ((line = in.readLine())!=null) {
-        		ChatServer.broadcast(nickname + " : " + line);
-        	}
-            // 학생이 위 TODO 를 모두 구현하면 아래 한 줄 삭제
-           
-            // ====== 학생 구현 끝 ========================================
-        } catch (IOException e) {
-            System.err.println("[ChatHandler] " + nickname + " 접속 종료: " + e.getMessage());
-        } finally {
-            // TODO 3) ChatServer.remove(this) 로 컬렉션에서 제거
-        	ChatServer.remove(this);
-            // TODO 4) in / out / socket 자원 해제 (각각 null 체크 + try-catch)
-        	try {in.close();} catch (IOException e) {e.printStackTrace();}
-        	try {out.close();} catch (Exception e) {e.printStackTrace();}
-        	try {socket.close();} catch (IOException e) {e.printStackTrace();}
-            // TODO 5) 퇴장 broadcast
-        	ChatServer.broadcast("[퇴장] " + nickname);
-        }
-    }
+	@Override
+	public void run() {
+		try {
+			// ====== 학생 구현 시작 ======================================
+			// TODO 1) (선택) 첫 줄을 닉네임으로 받아 nickname 필드에 저장 + 입장 broadcast
+			String nick = in.readLine();
+			if (nick != null && !nick.isBlank()) {
+				this.nickname = nick;
+			}
+			// TODO 2) readLine() 반복 → null 이 아니면 ChatServer.broadcast(닉네임 + " : " + line)
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				ChatServer.broadcast(nickname + " : " + line);
+			}
+			// 학생이 위 TODO 를 모두 구현하면 아래 한 줄 삭제
 
-    /**
+			// ====== 학생 구현 끝 ========================================
+		} catch (IOException e) {
+			System.err.println("[ChatHandler] " + nickname + " 접속 종료: " + e.getMessage());
+		} finally {
+			// TODO 3) ChatServer.remove(this) 로 컬렉션에서 제거
+			ChatServer.remove(this);
+			// TODO 4) in / out / socket 자원 해제 (각각 null 체크 + try-catch)
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// TODO 5) 퇴장 broadcast
+			ChatServer.broadcast("[퇴장] " + nickname);
+		}
+	}
+
+	/**
      * 이 핸들러가 담당하는 클라이언트에게 한 줄 전송.
      *
      * <p>학생 TODO: out 이 null 이 아니면 println(message) 호출.</p>
      */
     public void send(String message) {
         // TODO: out 으로 한 줄 송신
+    	if(out!=null) {
+    		out.println(message);
+    		out.flush();
+    	}
     }
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 }
