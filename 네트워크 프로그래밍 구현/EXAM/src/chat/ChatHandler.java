@@ -69,6 +69,9 @@ public class ChatHandler implements Runnable {
             // TODO 3) ChatServer.remove(this) 로 컬렉션에서 제거
         	ChatServer.remove(this);
             // TODO 4) in / out / socket 자원 해제 (각각 null 체크 + try-catch)
+        	try {in.close();} catch (IOException e) {e.printStackTrace();}
+        	try {out.close();} catch (Exception e) {e.printStackTrace();}
+        	try {socket.close();} catch (IOException e) {e.printStackTrace();}
             // TODO 5) 퇴장 broadcast
         }
     }
