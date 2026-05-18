@@ -67,6 +67,7 @@ public class ChatHandler implements Runnable {
             System.err.println("[ChatHandler] " + nickname + " 접속 종료: " + e.getMessage());
         } finally {
             // TODO 3) ChatServer.remove(this) 로 컬렉션에서 제거
+        	ChatServer.remove(this);
             // TODO 4) in / out / socket 자원 해제 (각각 null 체크 + try-catch)
             // TODO 5) 퇴장 broadcast
         }
