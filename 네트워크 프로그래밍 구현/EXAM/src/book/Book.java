@@ -54,6 +54,12 @@ public class Book {
     public Book(String bookCode, Integer classificationId,
                 String author, String name, String publisher, String isReserve) {
         // TODO: 6개 필드 초기화 (this.xxx = xxx)
+    	this.Book_code = Book_code;
+    	this.Classification_Id = Classification_Id;
+    	this.author = author;
+    	this.name = name;
+    	this.publisher = publisher;
+    	this.isreserve = isreserve;
     }
 
     // ====== getter / setter — 학생 TODO: 본문 채우기 (시그니처는 변경 금지) ======
