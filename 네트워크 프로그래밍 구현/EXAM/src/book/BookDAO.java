@@ -2,7 +2,9 @@ package book;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,7 +95,21 @@ public class BookDAO {
      */
     public List<Book> selectAll() throws SQLException {
         // TODO: PreparedStatement 로 SQL_SELECT_ALL 실행 → ResultSet 순회 → Book List 반환
-        throw new UnsupportedOperationException("BookDAO.selectAll() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT_ALL);ResultSet rs = pstmt.executeQuery();) {
+    		List<Book> list = new ArrayList<>();
+    		Book dto = null;
+    		while(rs.next()) {
+    			Book b = new Book();
+    			b.setBookCode(rs.getString("Book_code"));
+    			b.setClassificationId(rs.getInt("Classification_Id"));
+    			b.setAuthor(rs.getString("author"));
+    			b.setName(rs.getString("name"));
+    			b.setPublisher(rs.getString("publisher"));
+    			b.setIsReserve(rs.getString("isreserve"));
+    			list.add(b);
+    		}
+    		return list;
+    	}
     }
 
     /**
