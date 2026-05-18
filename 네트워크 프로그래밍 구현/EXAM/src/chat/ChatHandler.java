@@ -73,6 +73,7 @@ public class ChatHandler implements Runnable {
         	try {out.close();} catch (Exception e) {e.printStackTrace();}
         	try {socket.close();} catch (IOException e) {e.printStackTrace();}
             // TODO 5) 퇴장 broadcast
+        	ChatServer.broadcast("[퇴장] " + nickname);
         }
     }
 
