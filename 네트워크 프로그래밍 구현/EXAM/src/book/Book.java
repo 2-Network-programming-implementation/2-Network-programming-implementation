@@ -38,12 +38,12 @@ package book;
 public class Book {
 
     // TODO: private 필드 6개 선언
-	String Book_code;
-	int Classification_Id;
-	String author;
-	String name;
-	String publisher;
-	String isreserve;
+	private String book_code;
+	private int Classification_Id;
+	private String author;
+	private String name;
+	private String publisher;
+	private String isreserve;
 
     /** 기본 생성자 — 그대로 사용 */
     public Book() {}
@@ -54,7 +54,7 @@ public class Book {
     public Book(String bookCode, Integer classificationId,
                 String author, String name, String publisher, String isReserve) {
         // TODO: 6개 필드 초기화 (this.xxx = xxx)
-    	this.Book_code = Book_code;
+    	this.book_code = book_code;
     	this.Classification_Id = Classification_Id;
     	this.author = author;
     	this.name = name;
@@ -64,25 +64,27 @@ public class Book {
 
     // ====== getter / setter — 학생 TODO: 본문 채우기 (시그니처는 변경 금지) ======
 
-    public String  getBookCode()                  { return null; /* TODO */ }
-    public void    setBookCode(String v)          { /* TODO */ }
+    public String  getBookCode()                  { return book_code; }
+    public void    setBookCode(String v)          { this.book_code = v; }
 
-    public Integer getClassificationId()          { return null; /* TODO */ }
-    public void    setClassificationId(Integer v) { /* TODO */ }
+    public Integer getClassificationId()          { return Classification_Id; }
+    public void    setClassificationId(Integer v) { this.Classification_Id = v; }
 
-    public String  getAuthor()                    { return null; /* TODO */ }
-    public void    setAuthor(String v)            { /* TODO */ }
+    public String  getAuthor()                    { return author; }
+    public void    setAuthor(String v)            { this.author = v; }
 
-    public String  getName()                      { return null; /* TODO */ }
-    public void    setName(String v)              { /* TODO */ }
+    public String  getName()                      { return name; }
+    public void    setName(String v)              { this.name = v; }
 
-    public String  getPublisher()                 { return null; /* TODO */ }
-    public void    setPublisher(String v)         { /* TODO */ }
+    public String  getPublisher()                 { return publisher; }
+    public void    setPublisher(String v)         { this.publisher = v; }
 
-    public String  getIsReserve()                 { return null; /* TODO */ }
-    public void    setIsReserve(String v)         { /* TODO */ }
+    public String  getIsReserve()                 { return isreserve; }
+    public void    setIsReserve(String v)         { this.isreserve = v; }
+    
+    
 
-    /** 학생 TODO: 모든 필드 표시 (디버깅 용) */
+	/** 학생 TODO: 모든 필드 표시 (디버깅 용) */
     @Override
     public String toString() {
         return "Book{TODO: 모든 필드 표시}";
