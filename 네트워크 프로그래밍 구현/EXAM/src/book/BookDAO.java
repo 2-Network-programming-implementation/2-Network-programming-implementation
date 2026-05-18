@@ -102,6 +102,7 @@ public class BookDAO {
     			Book b = new Book();
     			b.setBookCode(rs.getString("Book_code"));
     			b.setClassificationId(rs.getInt("Classification_Id"));
+    			if(rs.wasNull()) System.out.println("Classification_Id is Null");
     			b.setAuthor(rs.getString("author"));
     			b.setName(rs.getString("name"));
     			b.setPublisher(rs.getString("publisher"));
