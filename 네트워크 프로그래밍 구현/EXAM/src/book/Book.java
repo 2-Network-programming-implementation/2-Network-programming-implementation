@@ -45,7 +45,19 @@ public class Book {
 	private String publisher;
 	private String isReserve;
 
+    /** 기본 생성자 — 그대로 사용 */
+    public Book() {}
 
-
-
-}
+    /**
+     * 전체 인자 생성자 — 학생 TODO: 매개변수 6개로 모든 필드 초기화
+     */
+    public Book(String bookCode, Integer classificationId,
+                String author, String name, String publisher, String isReserve) {
+        // TODO: 6개 필드 초기화 (this.xxx = xxx)
+    	this.bookCode = bookCode;
+    	this.classificationId = classificationId;
+    	this.author = author;
+    	this.name = name;
+    	this.publisher = publisher;
+    	this.isReserve = isReserve;
+    }
