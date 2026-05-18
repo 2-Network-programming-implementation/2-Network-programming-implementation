@@ -61,3 +61,29 @@ public class Book {
     	this.publisher = publisher;
     	this.isReserve = isReserve;
     }
+
+    // ====== getter / setter — 학생 TODO: 본문 채우기 (시그니처는 변경 금지) ======
+
+    public String  getBookCode()                  { return bookCode; }
+    public void    setBookCode(String v)          { this.bookCode = v; }
+
+    public Integer getClassificationId()          { return classificationId; }
+    public void    setClassificationId(Integer v) { this.classificationId = v; }
+
+    public String  getAuthor()                    { return author; }
+    public void    setAuthor(String v)            { this.author = v; }
+
+    public String  getName()                      { return name; }
+    public void    setName(String v)              { this.name = v; }
+
+    public String  getPublisher()                 { return publisher; }
+    public void    setPublisher(String v)         { this.publisher = v; }
+
+    public String  getIsReserve()                 { return isReserve; }
+    public void    setIsReserve(String v)         { this.isReserve = v; }
+
+
+    
+
+
+}
