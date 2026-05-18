@@ -119,7 +119,16 @@ public class BookDAO {
      */
     public int update(Book book) throws SQLException {
         // TODO: PreparedStatement 로 SQL_UPDATE 실행
-        throw new UnsupportedOperationException("BookDAO.update() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setInt(1, book.getClassificationId());
+    		pstmt.setString(2, book.getAuthor());
+    		pstmt.setString(3, book.getName());
+    		pstmt.setString(4, book.getPublisher());
+    		pstmt.setString(5, book.getIsReserve());
+    		pstmt.setString(6, book.getBookCode());
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 
     /**
