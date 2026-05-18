@@ -2,6 +2,7 @@ package chat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -39,10 +40,10 @@ public class ChatHandler implements Runnable {
     public ChatHandler(Socket socket) throws IOException {
         this.socket = socket;
         // TODO: in / out 스트림 초기화 (UTF-8 명시!)
-        //   - in : BufferedReader + InputStreamReader(socket.getInputStream(), "UTF-8")
-        in = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
-        //   - out: PrintWriter   + OutputStreamWriter(socket.getOutputStream(), "UTF-8"), autoFlush=true
-        out = new PrintWriter (new OutputStreamWriter(socket.getOutputStream(),"UTF-8"), true);
+        InputStream tmpIn = socket.getInputStream();
+        InputStreamReader in_reader = new InputStreamReader(tmpIn);
+        in = new BufferedReader(in_reader);
+        out = new PrintWriter(socket.getOutputStream());
     }
 
     @Override
@@ -50,8 +51,12 @@ public class ChatHandler implements Runnable {
         try {
             // ====== 학생 구현 시작 ======================================
             // TODO 1) (선택) 첫 줄을 닉네임으로 받아 nickname 필드에 저장 + 입장 broadcast
+        	
             // TODO 2) readLine() 반복 → null 이 아니면 ChatServer.broadcast(닉네임 + " : " + line)
-
+        	String line;
+        	while((line = in.readLine()) != null){
+        		ChatServer.broadcast("닉네임: " + line);
+        	}
             // 학생이 위 TODO 를 모두 구현하면 아래 한 줄 삭제
             throw new IOException("ChatHandler.run() 이 아직 구현되지 않았습니다. (TODO)");
             // ====== 학생 구현 끝 ========================================
