@@ -84,6 +84,12 @@ public class Book {
 
 
     
+	/** 학생 TODO: 모든 필드 표시 (디버깅 용) */
+	@Override
+	public String toString() {
+		return "Book [bookCode=" + bookCode + ", classificationId=" + classificationId + ", author=" + author
+				+ ", name=" + name + ", publisher=" + publisher + ", isReserve=" + isReserve + "]";
+	}
 
 
 }
