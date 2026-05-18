@@ -38,6 +38,12 @@ package book;
 public class Book {
 
     // TODO: private 필드 6개 선언
+	String Book_code;
+	int Classification_Id;
+	String author;
+	String name;
+	String publisher;
+	String isreserve;
 
     /** 기본 생성자 — 그대로 사용 */
     public Book() {}
