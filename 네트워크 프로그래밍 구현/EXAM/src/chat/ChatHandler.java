@@ -53,10 +53,7 @@ public class ChatHandler implements Runnable {
             // TODO 1) (선택) 첫 줄을 닉네임으로 받아 nickname 필드에 저장 + 입장 broadcast
         	
             // TODO 2) readLine() 반복 → null 이 아니면 ChatServer.broadcast(닉네임 + " : " + line)
-        	String line;
-        	while((line = in.readLine()) != null){
-        		ChatServer.broadcast("닉네임: " + line);
-        	}
+        	
             // 학생이 위 TODO 를 모두 구현하면 아래 한 줄 삭제
             throw new IOException("ChatHandler.run() 이 아직 구현되지 않았습니다. (TODO)");
             // ====== 학생 구현 끝 ========================================
