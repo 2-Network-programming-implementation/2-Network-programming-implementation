@@ -1,5 +1,7 @@
 package book;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -68,7 +70,16 @@ public class BookDAO {
      */
     public int insert(Book book) throws SQLException {
         // TODO: PreparedStatement 로 SQL_INSERT 실행
-        throw new UnsupportedOperationException("BookDAO.insert() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setString(1, book.getBookCode());
+    		pstmt.setInt(2, book.getClassificationId());
+    		pstmt.setString(3, book.getAuthor());
+    		pstmt.setString(4, book.getName());
+    		pstmt.setString(5, book.getPublisher());
+    		pstmt.setString(6, book.getIsReserve());
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 
     /**
