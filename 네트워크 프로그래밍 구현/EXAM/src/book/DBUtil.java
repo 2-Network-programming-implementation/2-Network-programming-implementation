@@ -1,7 +1,12 @@
 package book;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * JDBC Connection 유틸 (☆ 학생 구현)
@@ -51,12 +56,35 @@ public class DBUtil {
      */
     public static Connection getConnection() throws SQLException {
         // TODO 1) Properties 로 config/db.properties 로드
+    	Properties prop = new Properties();
+    	
+    	try(InputStream fin = new FileInputStream("config/db.properties");) {
+    		prop.load(fin);
+    	} catch (IOException e) {
+//    		e.printStackTrace();
+    		throw new RuntimeException("DBManager's getConnection() db.propertis..." +e.getCause());
+    	}
+    	String driver	 = prop.getProperty("db.driver");
+    	String url		 = prop.getProperty("db.url");
+    	String user 	 = prop.getProperty("db.user");
+    	String password  = prop.getProperty("db.password");
+    	
         // TODO 2) Class.forName(driver) — JDBC 4단계 ①
+    	try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException("DBManager's getConnection() Class.forName..." +e.getCause());
+		}
+    	
         // TODO 3) return DriverManager.getConnection(url, user, password); — JDBC 4단계 ②
 
-        throw new UnsupportedOperationException(
-                "DBUtil.getConnection() — 아직 구현되지 않았습니다.\n" +
-                "  → src/book/DBUtil.java 의 TODO 를 채우세요.");
+    		return DriverManager.getConnection(url, user, password);
+    	
+//        throw new UnsupportedOperationException(
+//                "DBUtil.getConnection() — 아직 구현되지 않았습니다.\n" +
+//                "  → src/book/DBUtil.java 의 TODO 를 채우세요.");
     }
 
     /**
@@ -67,5 +95,15 @@ public class DBUtil {
      */
     public static void close(AutoCloseable... closeables) {
         // TODO: for-each + null 체크 + try { c.close(); } catch (Exception ignored) {}
+    	for(AutoCloseable c : closeables) {
+    		if(c!=null) {
+    			try {
+					c.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+//					e.printStackTrace();
+				}
+    		}
+    	}
     }
 }
