@@ -50,6 +50,7 @@ public class ChatClient {
     /** 서버 접속 */
     public void connect(String host, int port, String nickname) throws IOException {
         // TODO 1) socket = new Socket(host, port);
+    	socket = new Socket(host, port);
         // TODO 2) in / out 스트림 초기화 (UTF-8)
         // TODO 3) out 으로 첫 줄에 닉네임 송신
         // TODO 4) running = true; → new Thread(this::readLoop).setDaemon(true) → start()
