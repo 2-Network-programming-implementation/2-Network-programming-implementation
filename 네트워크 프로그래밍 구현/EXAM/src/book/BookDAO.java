@@ -1,6 +1,10 @@
 package book;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,7 +72,16 @@ public class BookDAO {
      */
     public int insert(Book book) throws SQLException {
         // TODO: PreparedStatement 로 SQL_INSERT 실행
-        throw new UnsupportedOperationException("BookDAO.insert() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setString(1, book.getBookCode());
+    		pstmt.setInt(2, book.getClassificationId());
+    		pstmt.setString(3, book.getAuthor());
+    		pstmt.setString(4, book.getName());
+    		pstmt.setString(5, book.getPublisher());
+    		pstmt.setString(6, book.getIsReserve());
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 
     /**
@@ -82,7 +95,22 @@ public class BookDAO {
      */
     public List<Book> selectAll() throws SQLException {
         // TODO: PreparedStatement 로 SQL_SELECT_ALL 실행 → ResultSet 순회 → Book List 반환
-        throw new UnsupportedOperationException("BookDAO.selectAll() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_SELECT_ALL);ResultSet rs = pstmt.executeQuery();) {
+    		List<Book> list = new ArrayList<>();
+    		Book dto = null;
+    		while(rs.next()) {
+    			Book b = new Book();
+    			b.setBookCode(rs.getString("Book_code"));
+    			b.setClassificationId(rs.getInt("Classification_Id"));
+    			if(rs.wasNull()) System.out.println("Classification_Id is Null");
+    			b.setAuthor(rs.getString("author"));
+    			b.setName(rs.getString("name"));
+    			b.setPublisher(rs.getString("publisher"));
+    			b.setIsReserve(rs.getString("isreserve"));
+    			list.add(b);
+    		}
+    		return list;
+    	}
     }
 
     /**
@@ -92,7 +120,16 @@ public class BookDAO {
      */
     public int update(Book book) throws SQLException {
         // TODO: PreparedStatement 로 SQL_UPDATE 실행
-        throw new UnsupportedOperationException("BookDAO.update() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setInt(1, book.getClassificationId());
+    		pstmt.setString(2, book.getAuthor());
+    		pstmt.setString(3, book.getName());
+    		pstmt.setString(4, book.getPublisher());
+    		pstmt.setString(5, book.getIsReserve());
+    		pstmt.setString(6, book.getBookCode());
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 
     /**
@@ -102,6 +139,10 @@ public class BookDAO {
      */
     public int delete(String bookCode) throws SQLException {
         // TODO: PreparedStatement 로 SQL_DELETE 실행
-        throw new UnsupportedOperationException("BookDAO.delete() — TODO: 구현하세요.");
+    	try(Connection conn = DBUtil.getConnection();PreparedStatement pstmt = conn.prepareStatement(SQL_INSERT);) {
+    		pstmt.setString(1, bookCode);
+    		
+    		return pstmt.executeUpdate();
+    	}
     }
 }
